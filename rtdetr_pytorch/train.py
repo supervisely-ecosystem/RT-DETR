@@ -1,8 +1,9 @@
 import os
+
 import torch
-from src.solver import DetSolver
-from src.core import YAMLConfig
 from checkpoints import checkpoints
+from src.core import YAMLConfig
+from src.solver import DetSolver
 from src.misc.sly_logger import LOGS, Logs
 
 
@@ -17,12 +18,12 @@ def train(model: str, finetune: bool, config_path: str):
             torch.hub.download_url_to_file(checkpoint_url, checkpoint_path)
         tuning = checkpoint_path
     else:
-        tuning = ''
+        tuning = ""
 
     cfg = YAMLConfig(
         config_path,
         # resume='',
-        tuning=tuning
+        tuning=tuning,
     )
 
     solver = DetSolver(cfg)
