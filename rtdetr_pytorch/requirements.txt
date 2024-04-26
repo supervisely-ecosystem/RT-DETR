@@ -5,4 +5,4 @@ onnxruntime==1.15.1
 pycocotools
 PyYAML
 scipy
-git+https://github.com/supervisely/supervisely.git@inference-improvements
+supervisely==6.73.76
