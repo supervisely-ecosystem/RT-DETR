@@ -2,6 +2,8 @@ FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install python3-pip -y
 RUN apt-get install -y git
+RUN apt-get install -y curl
+
 
 RUN pip3 install networkx==2.8.8
 RUN pip3 install torch==2.0.1 torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cu117
