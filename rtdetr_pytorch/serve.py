@@ -325,9 +325,10 @@ class RTDETR(sly.nn.inference.ObjectDetection):
                 dst_path=weights_dst_path,
             )
         # download config.yml
+        local_config_path = os.path.join(os.path.dirname(self.model_dir), "config.yml")
         config_path = self.download(
             src_path=config_url,
-            dst_path=os.path.join(self.model_dir, "config.yml"),
+            dst_path=local_config_path,
         )
         # del "__include__" and rewrite the config
         with open(config_path, "r") as f:
