@@ -5,7 +5,7 @@ RUN apt-get install -y curl
 RUN apt install -y nvidia-cuda-toolkit
 
 RUN pip3 install -U nvidia-cudnn-cu12==8.9.7.29
-RUN pip3 install torch==2.0.1 torchvision==0.15.2
+RUN pip3 install torch==2.0.1 torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cu117
 RUN pip3 uninstall onnxruntime -y
 RUN pip3 install onnx==1.14.0 onnxruntime-gpu==1.15.1
 RUN pip3 install pycocotools
