@@ -196,7 +196,7 @@ class RTDETR(sly.nn.inference.ObjectDetection):
             ],
             contents=[self.pretrained_models_table, self.custom_models_table],
         )
-        self.runtime_select = SelectString(["PyTorch", "ONNXRuntime", "TensorRT"])
+        self.runtime_select = SelectString(["PyTorch", "ONNXRuntime"])  # @TODO: "TensorRT"
         runtime_field = Field(self.runtime_select, "Runtime", "Select a runtime for inference.")
         layout = Container([self.model_source_tabs, runtime_field])
         return layout
