@@ -28,7 +28,6 @@ load_dotenv("local.env")
 
 api: sly.Api = sly.Api.from_env()
 
-task_id = 534523  # sly.env.task_id()
 team_id = sly.env.team_id()
 workspace_id = sly.env.workspace_id()
 project_id = sly.env.project_id()
@@ -61,7 +60,7 @@ if file is not None:
     train.gui.load_from_config(app_config)
 
 
-# utils.load_from_config(train, hyperparameters_path)
+utils.load_from_config(train, hyperparameters_path)
 
 
 @train.start
@@ -77,7 +76,7 @@ def start_training():
     # Step 3. Train
     cfg, best_checkpoint_path = train_cli.train(train, custom_config_path)
 
-    # Step 4. Organize outputs and gather experiment information
+    # Step 4. Organize outputs and gather experiment info
     experiment_info = finalize_training(cfg, best_checkpoint_path, custom_config_path, train)
 
     return experiment_info
