@@ -28,11 +28,6 @@ load_dotenv("local.env")
 
 api: sly.Api = sly.Api.from_env()
 
-team_id = sly.env.team_id()
-workspace_id = sly.env.workspace_id()
-project_id = sly.env.project_id()
-file = sly.env.file(raise_not_found=False)
-
 
 config_paths_dir = os.path.join(rtdetr_pytorch_path, "configs", "rtdetr")
 default_config_path = os.path.join(config_paths_dir, "placeholder.yml")
@@ -40,7 +35,13 @@ default_config_path = os.path.join(config_paths_dir, "placeholder.yml")
 models = get_models()
 hyperparameters_path = os.path.join(os.path.dirname(__file__), "hyperparameters.yaml")
 
-app_options = {"enable_device_selector": False}
+app_options = {
+    "enable_device_selector": False,
+    "debug": {
+        "download_model": False,
+        "download_project": False,
+    },
+}
 
 current_file_dir = os.path.dirname(os.path.abspath(__file__))
 work_dir = os.path.join(current_file_dir, "output")
@@ -49,17 +50,19 @@ train = TrainApp("rt-detr", models, hyperparameters_path, app_options, work_dir)
 inference_settings = {"confidence_threshold": 0.4}
 train.register_inference_class(RTDETRModelMB, inference_settings)
 
+# @TODO: Add launch from file feature
+# ----------------------------
+# file = sly.env.file(raise_not_found=False)
+# if file is not None:
+#     if not file.endswith(".json"):
+#         raise ValueError("Invalid file format. Please provide a JSON file.")
+#     local_file_path = os.path.join(work_dir, "app_config.json")
+#     api.file.download(file, local_file_path)
+#     app_config = load_json_file(local_file_path)
+#     train.gui.load_from_config(app_config)
 
-if file is not None:
-    if not file.endswith(".json"):
-        raise ValueError("Invalid file format. Please provide a JSON file.")
-    local_file_path = os.path.join(work_dir, "app_config.json")
-    api.file.download(file, local_file_path)
-    app_config = load_json_file(local_file_path)
-    train.gui.load_from_config(app_config)
 
-
-# utils.load_from_config(train, hyperparameters_path)
+utils.load_from_config(train, hyperparameters_path)
 
 
 @train.start
