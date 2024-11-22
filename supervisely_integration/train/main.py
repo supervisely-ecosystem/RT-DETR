@@ -62,7 +62,8 @@ train.register_inference_class(RTDETRModelMB, inference_settings)
 #     train.gui.load_from_config(app_config)
 
 
-utils.load_from_config(train, hyperparameters_path)
+# Debug
+# utils.load_from_config(train, hyperparameters_path)
 
 
 @train.start
