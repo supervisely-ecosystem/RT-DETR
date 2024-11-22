@@ -14,7 +14,7 @@ from src.misc import dist
 
 # from utils import is_by_epoch
 from rtdetr_pytorch.utils import is_by_epoch
-from supervisely.nn.training.train_logger import train_logger
+from supervisely.nn.training.loggers.tensorboard_logger import tb_logger
 
 from .det_engine import evaluate, train_one_epoch
 from .solver import BaseSolver
@@ -37,12 +37,12 @@ class DetSolver(BaseSolver):
 
         start_time = time.time()
 
-        train_logger.train_started(total_epochs=args.epoches)
+        tb_logger.train_started(total_epochs=args.epoches)
         for epoch in range(self.last_epoch + 1, args.epoches):
             if dist.is_dist_available_and_initialized():
                 self.train_dataloader.sampler.set_epoch(epoch)
 
-            train_logger.epoch_started(total_steps=len(self.train_dataloader))
+            tb_logger.epoch_started(total_steps=len(self.train_dataloader))
             train_stats = train_one_epoch(
                 self.model,
                 self.criterion,
@@ -106,8 +106,8 @@ class DetSolver(BaseSolver):
             }
 
             val_stats = {"Val/mAP": test_stats["coco_eval_bbox"][0]}
-            train_logger.log_epoch(val_stats)
-            train_logger.epoch_finished()
+            tb_logger.log_epoch(val_stats)
+            tb_logger.epoch_finished()
 
             if self.output_dir and dist.is_main_process():
                 with (self.output_dir / "log.txt").open("a") as f:
@@ -124,7 +124,7 @@ class DetSolver(BaseSolver):
                 #             torch.save(coco_evaluator.coco_eval["bbox"].eval,
                 #                     self.output_dir / "eval" / name)
 
-        train_logger.train_finished()
+        tb_logger.train_finished()
         # Checkpoints
         # Save the best checkpoint
         best_epoch_idx = best_stat["epoch"]

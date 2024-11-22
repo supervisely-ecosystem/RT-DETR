@@ -9,7 +9,10 @@ _models = [
         "FPS(T4)": 217,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r18vd_dec3_6x_coco_from_paddle.pth",
+            "model_name": "rtdetr_r18vd_coco",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r18vd_dec3_6x_coco_from_paddle.pth"
+            },
         },
     },
     {
@@ -20,7 +23,10 @@ _models = [
         "FPS(T4)": 161,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r34vd_dec4_6x_coco_from_paddle.pth",
+            "model_name": "rtdetr_r34vd_coco",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r34vd_dec4_6x_coco_from_paddle.pth"
+            },
         },
     },
     {
@@ -31,7 +37,10 @@ _models = [
         "FPS(T4)": 145,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r50vd_m_6x_coco_from_paddle.pth",
+            "model_name": "rtdetr_r50vd_m_coco",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r50vd_m_6x_coco_from_paddle.pth"
+            },
         },
     },
     {
@@ -42,7 +51,10 @@ _models = [
         "FPS(T4)": 108,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r50vd_6x_coco_from_paddle.pth",
+            "model_name": "rtdetr_r50vd_coco",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r50vd_6x_coco_from_paddle.pth"
+            },
         },
     },
     {
@@ -53,7 +65,10 @@ _models = [
         "FPS(T4)": 74,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r101vd_6x_coco_from_paddle.pth",
+            "model_name": "rtdetr_r101vd_coco",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r101vd_6x_coco_from_paddle.pth"
+            },
         },
     },
     {
@@ -64,7 +79,10 @@ _models = [
         "FPS(T4)": 217,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r18vd_5x_coco_objects365_from_paddle.pth",
+            "model_name": "rtdetr_r18vd_coco_objects365",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r18vd_5x_coco_objects365_from_paddle.pth"
+            },
         },
     },
     {
@@ -75,7 +93,10 @@ _models = [
         "FPS(T4)": 108,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r50vd_2x_coco_objects365_from_paddle.pth",
+            "model_name": "rtdetr_r50vd_coco_objects365",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r50vd_2x_coco_objects365_from_paddle.pth"
+            },
         },
     },
     {
@@ -86,7 +107,10 @@ _models = [
         "FPS(T4)": 74,
         "meta": {
             "task_type": "object detection",
-            "weights_url": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r101vd_2x_coco_objects365_from_paddle.pth",
+            "model_name": "rtdetr_r101vd_coco_objects365",
+            "model_files": {
+                "checkpoint": "https://github.com/lyuwenyu/storage/releases/download/v0.1/rtdetr_r101vd_2x_coco_objects365_from_paddle.pth"
+            },
         },
     },
 ]

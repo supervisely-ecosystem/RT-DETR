@@ -38,14 +38,13 @@ config_paths_dir = os.path.join(rtdetr_pytorch_path, "configs", "rtdetr")
 default_config_path = os.path.join(config_paths_dir, "placeholder.yml")
 
 models = get_models()
-models_path = os.path.join(os.path.dirname(__file__), "models.json")
 hyperparameters_path = os.path.join(os.path.dirname(__file__), "hyperparameters.yaml")
 
-app_options = {}
+app_options = {"enable_device_selector": False}
 
 current_file_dir = os.path.dirname(os.path.abspath(__file__))
 work_dir = os.path.join(current_file_dir, "output")
-train = TrainApp("rt-detr", models_path, hyperparameters_path, app_options, work_dir)
+train = TrainApp("rt-detr", models, hyperparameters_path, app_options, work_dir)
 
 inference_settings = {"confidence_threshold": 0.4}
 train.register_inference_class(RTDETRModelMB, inference_settings)
@@ -216,7 +215,7 @@ def prepare_config(train: TrainApp, converted_project_dir: str):
         custom_config["val_dataloader"]["dataset"]["ann_file"] = val_ann_path
 
     # Merge with hyperparameters
-    hyperparameters = train.hyperparameters_json
+    hyperparameters = train.hyperparameters
     custom_config.update(hyperparameters)
 
     custom_config_path = os.path.join(config_paths_dir, "custom.yml")
@@ -253,6 +252,7 @@ def finalize_training(cfg, best_checkpoint_path, custom_config_path, train):
 
     # Gather experiment info
     experiment_info = {
+        "experiment_name": "RT-DETR",
         "model_name": model_name,
         "task_type": TaskType.OBJECT_DETECTION,
         "model_files": {"config": custom_config_path},

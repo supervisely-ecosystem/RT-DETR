@@ -16,7 +16,7 @@ from src.misc import MetricLogger, SmoothedValue, reduce_dict
 from src.misc.sly_logger import LOGS
 
 import rtdetr_pytorch.utils as utils
-from supervisely.nn.training.train_logger import train_logger
+from supervisely.nn.training.loggers.tensorboard_logger import tb_logger
 
 
 def train_one_epoch(
@@ -119,8 +119,8 @@ def train_one_epoch(
             "Train/grad_norm": grad_norm.item() if grad_norm is not None else None,
             "CUDA Memory": torch.cuda.max_memory_allocated() / 1024.0 * 1024.0,
         }
-        train_logger.log_step(train_stats)
-        train_logger.on_step_end()
+        tb_logger.log_step(train_stats)
+        tb_logger.on_step_end()
 
     # Draw training loss
     LOGS.log_train_iter()
