@@ -10,7 +10,7 @@
 	"poster": "https://github.com/user-attachments/assets/ae6ec55e-63eb-43d1-99de-f62650939c69",
 	"description": "Train RT-DETR model on your data",
 	"docker_image": "supervisely/rt-detr:1.0.4",
-	"instance_version": "6.11.22",
+	"instance_version": "6.12.9",
 	"task_location": "workspace_tasks",
 	"need_gpu": true,
 	"gpu": "required",
