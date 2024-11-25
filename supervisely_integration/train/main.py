@@ -37,6 +37,7 @@ hyperparameters_path = os.path.join(os.path.dirname(__file__), "hyperparameters.
 
 app_options = {
     "enable_device_selector": False,
+    "enable_tensorboard": True,
     "debug": {
         "download_model": False,
         "download_project": False,
@@ -44,7 +45,7 @@ app_options = {
 }
 
 current_file_dir = os.path.dirname(os.path.abspath(__file__))
-work_dir = os.path.join(current_file_dir, "output")
+work_dir = os.path.join(current_file_dir, "work_dir")
 train = TrainApp("rt-detr", models, hyperparameters_path, app_options, work_dir)
 
 inference_settings = {"confidence_threshold": 0.4}
@@ -59,11 +60,11 @@ train.register_inference_class(RTDETRModelMB, inference_settings)
 #     local_file_path = os.path.join(work_dir, "app_config.json")
 #     api.file.download(file, local_file_path)
 #     app_config = load_json_file(local_file_path)
-#     train.gui.load_from_config(app_config)
+#     train.gui.load_from_state(app_config)
 
 
 # Debug
-# utils.load_from_config(train, hyperparameters_path)
+utils.load_from_state(train, hyperparameters_path)
 
 
 @train.start

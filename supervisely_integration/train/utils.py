@@ -1,5 +1,7 @@
 from multiprocessing import cpu_count
 
+from supervisely.nn.training.train_app import TrainApp
+
 
 def get_num_workers(batch_size: int):
     num_workers = min(batch_size, 8, cpu_count())
@@ -7,7 +9,7 @@ def get_num_workers(batch_size: int):
 
 
 # Debug
-def load_from_config(train, hyperparameters_path: str):
+def load_from_state(train: TrainApp, hyperparameters_path: str):
     with open(hyperparameters_path, "r") as f:
         hyper_params = f.read()
 
@@ -46,4 +48,4 @@ def load_from_config(train, hyperparameters_path: str):
         },
     }
 
-    train.gui.load_from_config(app_config)
+    train.gui.load_from_state(app_config)
