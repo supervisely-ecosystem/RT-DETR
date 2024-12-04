@@ -23,7 +23,7 @@ train = TrainApp(
     f"{base_path}/app_options.yaml",
 )
 
-inference_settings = {"confidence_threshold": 0.4}
+inference_settings = {"confidence_threshold": 0}
 train.register_inference_class(RTDETRv2Benchmark, inference_settings)
 
 # For debug
