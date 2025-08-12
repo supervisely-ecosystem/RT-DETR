@@ -304,6 +304,7 @@ def run_training():
     )
 
     try:
+        sly.logger.info("Creating experiment info")
         create_experiment(
             model_name="RT-DETR",
             remote_dir=remote_artifacts_dir,
@@ -312,9 +313,7 @@ def run_training():
             primary_metric_name=primary_metric_name,
         )
     except Exception as e:
-        sly.logger.warning(
-            f"Couldn't create experiment, this training session will not appear in experiments table. Error: {e}"
-        )
+        sly.logger.error(f"Couldn't create experiment, this training session will not appear in the experiments table. Error: {e}")
 
 
 
