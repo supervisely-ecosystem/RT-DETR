@@ -184,7 +184,7 @@ def run_model_benchmark(
         remote_dir = bm.upload_visualizations(eval_res_dir + "/visualizations/")
         report = bm.upload_report_link(remote_dir)
         report_id = bm.report_id
-        eval_metrics = bm.metrics
+        eval_metrics = bm.key_metrics
         primary_metric_name = bm.primary_metric_name
 
         # 8. UI updates

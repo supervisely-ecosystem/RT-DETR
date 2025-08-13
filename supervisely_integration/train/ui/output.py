@@ -138,7 +138,7 @@ card.lock()
 
 
 def create_experiment(
-    model_name, remote_dir, report_id=None, eval_metrics=None, primary_metric_name=None
+    model_name, remote_dir, local_dir, report_id=None, eval_metrics=None, primary_metric_name=None
 ):
     train_info = TrainInfo(**g.sly_rtdetr_generated_metadata)
     experiment_info = g.rtdetr_artifacts.convert_train_to_experiment_info(train_info)
@@ -157,14 +157,14 @@ def create_experiment(
     experiment_info_json["project_preview"] = g.project_info.image_preview_url
     experiment_info_json["primary_metric"] = primary_metric_name
 
-    g.api.task.set_output_experiment(g.task_id, experiment_info_json)
+    g.api.task.set_output_experiment(g.TASK_ID, experiment_info_json)
     experiment_info_json.pop("project_preview")
     experiment_info_json.pop("primary_metric")
 
-    experiment_info_path = os.path.join(g.artifacts_dir, "experiment_info.json")
+    experiment_info_path = os.path.join(local_dir, "experiment_info.json")
     remote_experiment_info_path = os.path.join(remote_dir, "experiment_info.json")
     dump_json_file(experiment_info_json, experiment_info_path)
-    g.api.file.upload(g.team_id, experiment_info_path, remote_experiment_info_path)
+    g.api.file.upload(g.TEAM_ID, experiment_info_path, remote_experiment_info_path)
 
 def iter_callback(logs):
     iter_idx = logs.iter_idx
@@ -308,6 +308,7 @@ def run_training():
         create_experiment(
             model_name="RT-DETR",
             remote_dir=remote_artifacts_dir,
+            local_dir=local_artifacts_dir,
             report_id=report_id,
             eval_metrics=eval_metrics,
             primary_metric_name=primary_metric_name,
@@ -504,7 +505,7 @@ def create_trainval():
     g.val_dataset_path = val_dataset_path
 
     project_meta_path = os.path.join(converted_project_dir, "meta.json")
-    sly.json.dump_json_file(g.project.meta.to_json(), project_meta_path)
+    dump_json_file(g.project.meta.to_json(), project_meta_path)
 
     for items, dataset_path in zip(
         [train_items, val_items], [train_dataset_path, val_dataset_path]
@@ -520,7 +521,7 @@ def create_trainval():
 
         coco_anno = get_coco_annotations(dataset_fs, g.converted_project.meta, selected_classes)
         coco_anno_path = os.path.join(dataset_fs.directory, "coco_anno.json")
-        sly.json.dump_json_file(coco_anno, coco_anno_path)
+        dump_json_file(coco_anno, coco_anno_path)
 
     sly.logger.info("COCO annotations created")
 
