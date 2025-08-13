@@ -28,6 +28,13 @@ class CocoEvaluator(object):
         coco_gt = copy.deepcopy(coco_gt)
         self.coco_gt = coco_gt
 
+        try:
+            if isinstance(self.coco_gt, COCO) and getattr(self.coco_gt, 'dataset', None) is not None:
+                self.coco_gt.dataset.setdefault('info', {})
+                self.coco_gt.dataset.setdefault('licenses', [])
+        except Exception:
+            pass
+
         self.iou_types = iou_types
         self.coco_eval = {}
         for iou_type in iou_types:
