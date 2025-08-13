@@ -48,7 +48,6 @@ def run_model_benchmark(
     creating_report_f: Field,
     model_benchmark_pbar: SlyTqdm,
     model_benchmark_pbar_secondary: Progress,
-    remote_artifacts_dir: str
 ) -> bool:
     model_benchmark_done = False
     benchmark_report_template, report_id, eval_metrics, primary_metric_name = None, None, None, None
