@@ -17,6 +17,9 @@ from supervisely.io.fs import get_file_name, get_file_name_with_ext
 from supervisely.nn.benchmark import ObjectDetectionBenchmark
 from supervisely.nn.inference import SessionJSON
 from supervisely_integration.train.serve import RTDETRModelMB
+from supervisely.nn.artifacts.artifacts import TrainInfo
+from supervisely.nn.artifacts.rtdetr import RTDETR as RTDETRArtifacts
+from dataclasses import asdict
 
 
 def get_eval_results_dir_name(api: sly.Api, task_id: int, project_info: ProjectInfo) -> str:
@@ -47,6 +50,7 @@ def run_model_benchmark(
     model_benchmark_pbar_secondary: Progress,
 ) -> bool:
     model_benchmark_done = False
+    benchmark_report_template, report_id, eval_metrics, primary_metric_name = None, None, None, None
     try:
         best_filename = get_file_name_with_ext(g.best_checkpoint_path)
         checkpoint_path = os.path.join(remote_weights_dir, best_filename)
@@ -179,11 +183,12 @@ def run_model_benchmark(
         bm.visualize()
         remote_dir = bm.upload_visualizations(eval_res_dir + "/visualizations/")
         report = bm.upload_report_link(remote_dir)
+        report_id = bm.report_id
+        eval_metrics = bm.key_metrics
+        primary_metric_name = bm.primary_metric_name
 
         # 8. UI updates
-        benchmark_report_template = api.file.get_info_by_path(
-            sly.env.team_id(), remote_dir + "template.vue"
-        )
+        benchmark_report_template = api.file.get_info_by_path(sly.env.team_id(), remote_dir + "template.vue")
         model_benchmark_done = True
         creating_report_f.hide()
         model_benchmark_report.set(benchmark_report_template)
@@ -207,4 +212,4 @@ def run_model_benchmark(
                 api.project.remove(bm.diff_project_info.id)
         except Exception as e2:
             pass
-    return model_benchmark_done
+    return model_benchmark_done, benchmark_report_template, report_id, eval_metrics, primary_metric_name
