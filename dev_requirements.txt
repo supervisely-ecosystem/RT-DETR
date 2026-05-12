@@ -1,10 +1,12 @@
-supervisely==6.73.448
-pycocotools
-torch==2.0.1
-torchvision==0.15.2
-scipy
-imgaug
-onnx==1.14.0
-onnxruntime==1.15.1
-PyYAML
-scipy
+supervisely[training]==6.73.567
+supervisely[model-benchmark]==6.73.567
+
+pycocotools==2.0.11
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
+torchvision==0.26.0+cu128
+scipy==1.17.1
+imgaug==0.4.0
+onnx==1.21.0
+onnxruntime-gpu==1.26.0
+PyYAML==6.0.3
